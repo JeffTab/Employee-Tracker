@@ -1,0 +1,28 @@
+{
+  "name": "Employee-Tracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JeffTab/Employee-Tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JeffTab/Employee-Tracker/issues"
+  },
+  "homepage": "https://github.com/JeffTab/Employee-Tracker#readme",
+  "dependencies": {
+    "consola": "^2.11.3",
+    "console.table": "^0.10.0",
+    "dotenv": "^8.2.0",
+    "inquirer": "^7.0.4",
+    "mysql": "^2.18.1",
+    "table": "^5.4.6"
+  }
+}
