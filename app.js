@@ -3,13 +3,13 @@ require('console.table');
 
 const connection = require('./config/connection');
 
-const { getAllEmployees, getRoleList, getEmployeesByRole, getDepartmentList, getEmployeesByDepartment, addEmployee, getManagerList, updateEmployeeManager, updateEmployeeRole, deleteEmployee } = require("./lib/db-query");
+const { getAllEmployees, getRoleList, getEmployeesByRole, getDepartmentList, getEmployeesByDepartment, getManagerList, getEmployeesByManager, addEmployee, updateEmployeeManager, updateEmployeeRole, deleteEmployee } = require("./lib/db-query");
 
 const { mainMenuPrompt } = require("./lib/prompts");
 
 const { departmentMenuPrompt, departmentAddTitlePrompt, departmentDeletePrompt } = require("./lib/departmentPrompts");
 const { roleMenuPrompt, roleAddTitlePrompt, roleAddSalaryPrompt, roleAddDepartmentPrompt, roleUpdateSelectPrompt, roleUpdateOptionsPrompt, roleUpdateSalaryPrompt, roleUpdateDepartment, roleDeletePrompt } = require("./lib/rolePrompts");
-const { employeeMenuPrompt, employeeViewMenuPrompt, employeeViewRolePrompt, employeeViewDepartmentPrompt, employeeAddPrompt, employeeUpdateSelectPrompt, employeeUpdateOptionsPrompt, employeeUpdateManagerPrompt, employeeUpdateRolePrompt, employeeDeletePrompt } = require("./lib/employeePrompts");
+const { employeeMenuPrompt, employeeViewMenuPrompt, employeeViewRolePrompt, employeeViewDepartmentPrompt, employeeViewManagerPrompt, employeeAddPrompt, employeeUpdateSelectPrompt, employeeUpdateOptionsPrompt, employeeUpdateManagerPrompt, employeeUpdateRolePrompt, employeeDeletePrompt } = require("./lib/employeePrompts");
 
 const startApp = async () => {
 
@@ -39,6 +39,7 @@ const employeeViewMenuFunction = async () => {
     if (employeeViewMenu === "View All") { employeeViewAllFunction(); }
     else if (employeeViewMenu === "View by Role") { employeeViewRoleFunction(); }
     else if (employeeViewMenu === "View by Department") { employeeViewDepartmentFunction(); }
+    else if (employeeViewMenu === "View by Manager") { employeeViewManagerFunction(); }
     else { employeeMenuFunction(); }
 };
 
@@ -65,6 +66,15 @@ const employeeViewDepartmentFunction = async () => {
     const { employeeViewDepartment } = await inquirer.prompt(employeeViewDepartmentPrompt);
     const employeesByDepartment = await getEmployeesByDepartment(employeeViewDepartment);
     console.table(employeesByDepartment);
+    return startApp();
+};
+
+const employeeViewManagerFunction = async () => {
+    const managerList = await getManagerList();
+    console.table(managerList);
+    const { employeeViewManager } = await inquirer.prompt(employeeViewManagerPrompt);
+    const employeesByManager = await getEmployeesByManager(employeeViewManager);
+    console.table(employeesByManager);
     return startApp();
 };
 
@@ -111,8 +121,22 @@ const employeeDeleteFunction = async () => {
     const allEmployees = await getAllEmployees();
     console.table(allEmployees);
     const { id } = await inquirer.prompt(employeeDeletePrompt);
+    console.log(id);
     deleteEmployee(id);
     return startApp();
+};
+
+const roleMenuFunction = async () => {
+    const { roleMenu } = await inquirer.prompt(roleMenuPrompt);
+    if (roleMenu === "View") { roleViewFunction(); }
+    else if (roleMenu === "Add") { employeeAddFunction(); }
+    else if (roleMenu === "Update") { employeeUpdateSelectFunction(); }
+    else if (roleMenu === "Delete") { employeeDeleteFunction(); }
+    else { startApp(); }
+};
+
+const roleViewFunction = async () => {
+
 };
 
 connection.connect(err => {
