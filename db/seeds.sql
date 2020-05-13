@@ -25,12 +25,13 @@ VALUES
   ("Learning Manager", 37000, 3);
 
 INSERT INTO employee
-  (first_name, last_name, role_id);
+  (first_name, last_name, role_id, manager_id)
+  
 VALUES
-  ("Samantha", "Socks", 4),
-  ("Christina", "Cats", 8),
-  ("Mark", "Math", 10),
-  ("Mike", "Microphone", 12),
+  ("Samantha", "Socks", 4, null),
+  ("Christina", "Cats", 8,null ),
+  ("Mark", "Math", 10, null	),
+  ("Mike", "Microphone", 12, null),
   ("Fred", "Slacks", 1, 1),
   ("Jean", "Jeans", 1, 1),
   ("Fran", "Phran", 2, 1),
